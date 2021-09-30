@@ -4,7 +4,7 @@ import Loading from "./Loading";
 
 const Show = (props) => {
   const { handleSelect, selectedSeason, show } = props;
-  console.log(show)
+  console.log(`selected season: ${selectedSeason}`)
 
   if (!show) return <Loading />;
 
