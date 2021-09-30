@@ -1,17 +1,39 @@
+/* eslint-disable no-unused-vars */
+import React from "react";
+import { render, screen, waitFor } from "@testing-library/react";
+import Display from "../Display";
+import { testShow } from "./testData";
+import userEvent from "@testing-library/user-event";
 
+test("Display component renders without passed in props", () => {
+  render(<Display />);
+  const displayElement = screen.queryByAltText(/header image/i);
+  expect(displayElement).toBeInTheDocument();
+});
 
+test("when the fetch button is pressed, the show component will display", async () => {
+  render(<Display />);
+  const fetchButton = screen.queryByRole("button");
+  userEvent.click(fetchButton);
+  //   wait for API response
+  await waitFor(() => {
+    screen.queryByTestId(/show-container/i)
+  })
+//   expect(screen.queryByTestId(/show-container/i)).toBeInTheDocument();
+});
 
-
-
-
-
-
-
-
-
-
-
-
+test("amount of select options rendered is equal to the amount of seasons in your test data", async () => {
+    // Arrange
+    render(<Display />);
+    const fetchButton = screen.queryByRole("button");
+    //   Act
+    userEvent.click(fetchButton);
+    await waitFor(() => {
+        screen.queryAllByTestId(/season-option/i);
+    })
+    //  Assert
+    expect(screen.queryAllByTestId(/season-option/i)).toHaveLength(1);
+  });
 
 ///Tasks:
 //1. Add in nessisary imports and values to establish the testing suite.
